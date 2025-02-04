@@ -38,7 +38,7 @@ if (isset($_GET['numThem'])) {
                 <br />
                 <div class="form-group mt-2">
                     <a href="list.php" class="btn btn-primary">Retour à la liste</a>
-                    <button type="submit" class="btn btn-danger" <?php echo ($ifnumThemUsed ? 'disabled' : ''); ?>>
+                    <button type="submit" class="btn btn-danger" <?php echo ($numThemUsed ? 'disabled' : ''); ?>>
                         Confirmer delete ?
                     </button>
                 </div>

@@ -4,7 +4,7 @@ require_once '../../functions/ctrlSaisies.php';
 
 $libMotCle = ctrlSaisies($_POST['libMotCle']);
 
-sql_insert('STATUT', 'libMotCle', "'$libMotCle'");
+sql_insert('MOTCLE', 'libMotCle', "'$libMotCle'");
 
 
-header('Location: ../../views/backend/statuts/list.php');
+header('Location: ../../views/backend/keywords/list.php');

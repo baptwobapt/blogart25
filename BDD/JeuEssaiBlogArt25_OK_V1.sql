@@ -138,6 +138,8 @@ VALUES
     "imgArt19.jpeg",
     01);
 --
+ALTER TABLE ARTICLE AUTO_INCREMENT = 1;
+
 INSERT INTO ARTICLE (numArt, dtCreaArt, dtMajArt, libTitrArt, libChapoArt, libAccrochArt, parag1Art,
    libSsTitr1Art, parag2Art, libSsTitr2Art, parag3Art, libConclArt, urlPhotArt,
    numThem)
@@ -218,6 +220,7 @@ VALUES
     "imgArt20.jpeg", 
     03);
 --
+
 -- --------------------------------------------------------------------
 
 -- --------------------------------------------------------------------
@@ -354,4 +357,3 @@ INSERT INTO MOTCLEARTICLE (numArt, numMotCle) VALUES (06, 06);
 
 -- --------------------------------------------------------------------
 -- --------------------------------------------------------------------
-

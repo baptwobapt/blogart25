@@ -6,18 +6,18 @@ require_once '../../functions/ctrlSaisies.php';
 $numMotCle = ctrlSaisies($_POST['numMotCle']);
 
 // Vérifie si le statut est utilisé
-$countnumMotCle = sql_select("MEMBRE", "COUNT(*) AS total", "numMotCle = $numMotCle")[0]['total'];
+$countnumMotCle = sql_select("MOTCLEARTICLE", "COUNT(*) AS total", "numMotCle = $numMotCle")[0]['total'];
 
 if ($countnumMotCle > 0) {
     // Redirection avec message d'erreur
-    header('Location: ../../views/backend/statuts/list.php?error=used');
+    header('Location: ../../views/backend/keywords/list.php?error=used');
     exit;
 }
 
 // Si le statut n'est pas utilisé, suppression
-sql_delete('STATUT', "numMotCle = $numMotCle");
+sql_delete('MOTCLE', "numMotCle = $numMotCle");
 
-header('Location: ../../views/backend/statuts/list.php?success=deleted');
+header('Location: ../../views/backend/keywords/list.php?success=deleted');
 exit;
 
 ?>
