@@ -12,7 +12,7 @@
 </head>
 <?php
 //load config
-require_once './config.php';
+require_once 'config.php';
 ?>
 <body>
 <nav class="navbar navbar-expand-lg bg-light">
