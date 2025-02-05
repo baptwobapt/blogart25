@@ -1,7 +1,7 @@
 <?php 
 require_once 'header.php';
 sql_connect();
-session_start(); // Démarre la session pour récupérer les informations utilisateur
+
 ?>
 
 <!-- Afficher le message de bienvenue après une connexion réussie -->
