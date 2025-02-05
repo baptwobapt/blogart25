@@ -37,36 +37,54 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <h2 class="text-center">Connexion</h2>
-            <form action="" method="post">
-                <!-- Pseudo -->
-                <div class="form-group">
-                    <label for="pseudo">Pseudo</label>
-                    <input type="text" id="pseudo" name="pseudo" class="form-control" value="<?php echo htmlspecialchars($pseudo); ?>" required>
-                    <?php if (!empty($errorPseudo)): ?>
-                        <div class="alert alert-danger mt-2"><?php echo $errorPseudo; ?></div>
-                    <?php endif; ?>
-                </div>
-                <br>
+<main>
+    <h1 class="text-center">Se connecter</h1>
 
-                <!-- Mot de passe -->
-                <div class="form-group">
-                    <label for="password">Mot de passe</label>
-                    <input type="password" id="password" name="password" class="form-control" required>
-                    <?php if (!empty($errorPassword)): ?>
-                        <div class="alert alert-danger mt-2"><?php echo $errorPassword; ?></div>
-                    <?php endif; ?>
-                </div>
-                <br>
+   
+    <form action="" method="post">
+        <div class="collumnslog">
+        <!-- Pseudo -->
+            <div class="champ">
+                <label for="pseudo">Pseudo :</label>
+                <input type="text" name="pseudo" value="<?= htmlspecialchars($pseudo) ?>" required>
+                <?php if (!empty($errorPseudo)): ?>
+                    <div class="alert alert-danger mt-2"><?= $errorPseudo ?></div>
+                <?php endif; ?>
+            </div>
 
-                <!-- Bouton de connexion -->
-                <div class="form-group text-center">
-                    <button type="submit" class="btn btn-primary">Se connecter</button>
+            <!-- Mot de passe -->
+            <div class="champ">
+                <label for="password">Mot de passe :</label>
+                <input type="password" id="mdp" name="password" required>
+                <div class="afficher-mdp">
+                    <input type="checkbox" id="showPassword" onclick="myFunction()">
+                    <label for="showPassword">Afficher mot de passe</label>
                 </div>
-            </form>
+                <?php if (!empty($errorPassword)): ?>
+                    <div class="alert alert-danger mt-2"><?= $errorPassword ?></div>
+                <?php endif; ?>
+            </div>
         </div>
-    </div>
-</div>
+
+        <!-- Boutons -->
+        <div class="btn-se-connecter">
+            <button type="submit">Se connecter</button>
+            <a  class="link">Mot de passe oublié ?</a>
+        </div>
+
+        <p>Nouveau chez Mêlées Bordelaises ? <br>
+            <a href="/views/backend/security/signup.php" class="link">Créez un compte</a>
+        </p>
+    </form>
+</main>
+
+<script>
+    function myFunction() {
+        var x = document.getElementById("mdp");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+</script>

@@ -11,132 +11,105 @@ $old = $_SESSION['old'] ?? [];
 unset($_SESSION['errors'], $_SESSION['success'], $_SESSION['old']);
 ?>
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 mx-auto">
-            <h1 class="mb-4">Création de compte</h1>
+<main>
 
-            <?php if ($success): ?>
-                <div class="alert alert-success"><?= htmlspecialchars($success) ?></div>
-            <?php endif; ?>
+    <h1>Créer mon compte</h1>
 
-            <?php if (!empty($errors)): ?>
-                <div class="alert alert-danger">
-                    <h5>Erreurs à corriger :</h5>
-                    <ul class="mb-0">
-                        <?php foreach ($errors as $error): ?>
-                            <li><?= htmlspecialchars($error) ?></li>
-                        <?php endforeach; ?>
-                    </ul>
+    <?php if ($success): ?>
+        <div class="alert alert-success"><?= htmlspecialchars($success) ?></div>
+    <?php endif; ?>
+    <div class="container mb-4">
+        <?php if (!empty($errors)): ?>
+            <div class="alert alert-danger">
+                <ul class="mb-2">
+                    <?php foreach ($errors as $error): ?>
+                        <?= htmlspecialchars($error) ?><br>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        <?php endif; ?>
+    </div>
+    <form action="<?php echo ROOT_URL . '/api/security/signup.php' ?>" method="post">
+        <!-- Prénom -->
+        <div class="rowlog">
+            <div class="collumnslog" >
+                <div class="champ">
+                    <label for="prenomMemb">Prénom :</label>
+                    <input type="text" name="prenomMemb" value="<?= htmlspecialchars($old['prenomMemb'] ?? '') ?>" required>
                 </div>
-            <?php endif; ?>
 
-            <form action="<?php echo ROOT_URL . '/api/security/signup.php' ?>" method="post">
                 <!-- Nom -->
-                <div class="mb-3">
-                    <label class="form-label">Nom</label>
-                    <input type="text" 
-                           class="form-control" 
-                           name="nomMemb" 
-                           value="<?= htmlspecialchars($old['nomMemb'] ?? '') ?>"
-                           required>
+                <div class="champ">
+                    <label for="nomMemb">Nom :</label>
+                    <input type="text" name="nomMemb" value="<?= htmlspecialchars($old['nomMemb'] ?? '') ?>" required>
                 </div>
-
-                <!-- Prénom -->
-                <div class="mb-3">
-                    <label class="form-label">Prénom</label>
+                    <!-- Pseudo -->
+                <div class="champ">
+                    <label for="pseudo" placeholder="6 à 70 caractères">Pseudo</label>
                     <input type="text" 
-                           class="form-control" 
-                           name="prenomMemb" 
-                           value="<?= htmlspecialchars($old['prenomMemb'] ?? '') ?>"
-                           required>
-                </div>
-
-                <!-- Pseudo -->
-                <div class="mb-3">
-                    <label class="form-label">Pseudo</label>
-                    <input type="text" 
-                           class="form-control" 
-                           name="pseudoMemb" 
-                           value="<?= htmlspecialchars($old['pseudoMemb'] ?? '') ?>"
-                           required>
+                            name="pseudoMemb" 
+                            value="<?= htmlspecialchars($old['pseudoMemb'] ?? '') ?>"
+                            required>
                     <small class="form-text text-muted">6 à 70 caractères</small>
                 </div>
-
-                <!-- Mot de passe -->
-                <div class="mb-3">
-                    <label class="form-label">Mot de passe</label>
-                    <input type="password" 
-                           class="form-control" 
-                           name="passMemb" 
-                           id="passMemb"
-                           required>
-                    <small class="form-text text-muted">8-15 caractères avec majuscule, minuscule et chiffre</small>
-                </div>
-                <input type="checkbox" onclick="togglePassword('passMemb')"> Afficher Mot de passe
-
-                <!-- Confirmation mot de passe -->
-                <div class="mb-3">
-                    <label class="form-label">Confirmer le mot de passe</label>
-                    <input type="password" 
-                           class="form-control" 
-                           name="passMemb2" 
-                           id="passMemb2"
-                           required>
-                </div>
-                <input type="checkbox" onclick="togglePassword('passMemb2')"> Afficher Mot de passe
-
+            </div>
+            <div class="collumnslog">
                 <!-- Email -->
-                <div class="mb-3">
-                    <label class="form-label">Email</label>
-                    <input type="email" 
-                           class="form-control" 
-                           name="eMailMemb" 
-                           value="<?= htmlspecialchars($old['eMailMemb'] ?? '') ?>"
-                           required>
+                <div class="champ">
+                    <label for="email">Email :</label>
+                    <input type="email" name="eMailMemb" value="<?= htmlspecialchars($old['eMailMemb'] ?? '') ?>" required>
                 </div>
 
                 <!-- Confirmation Email -->
-                <div class="mb-3">
-                    <label class="form-label">Confirmer l'email</label>
-                    <input type="email" 
-                           class="form-control" 
-                           name="eMailMemb2" 
-                           value="<?= htmlspecialchars($old['eMailMemb2'] ?? '') ?>"
-                           required>
+                <div class="champ">
+                    <label for="email">Confirmer l'email :</label>
+                    <input type="email" name="eMailMemb2" value="<?= htmlspecialchars($old['eMailMemb2'] ?? '') ?>" required>
                 </div>
 
-                <!-- Accord données -->
-                <div class="mb-3 form-check">
-                <input type="checkbox" 
-                    class="form-check-input" 
-                    name="accordMemb" 
-                    value="1" 
-                    <?= isset($old['accordMemb']) ? 'checked' : '' ?>>
-                    <label class="form-check-label">J'accepte le stockage de mes données</label>
+                <!-- Mot de passe -->
+                <div class="champ">
+                    <label for="passMemb">Mot de passe :</label>
+                    <input type="password" id="passMemb" name="passMemb" required>
+                    <div class="afficher-mdp">
+                        <input type="checkbox" onclick="togglePassword('passMemb')"> Afficher mot de passe
+                    </div>
                 </div>
-
-                <!-- Boutons -->
-                <div class="d-flex justify-content-between mt-4">
-                    <a href="<?= ROOT_URL ?>login.php" class="btn btn-secondary">
-                        Déjà un compte ? Se connecter
-                    </a>
-                    <button type="submit" class="btn btn-primary">
-                        Créer le compte
-                    </button>
+                
+                <!-- Confirmation mot de passe -->
+                <div class="champ">
+                    <label for="passMemb2">Confirmation du mot de passe :</label>
+                    <input type="password" id="passMemb2" name="passMemb2" required>
+                    <div class="afficher-mdp">
+                        <input type="checkbox" onclick="togglePassword('passMemb2')"> Afficher mot de passe
+                    </div>
                 </div>
-            </form>
+            </div>
         </div>
-    </div>
-</div>
+        <!-- Accord données -->
+        <div>
+            <div class="champ">
+                <label  for="accordMemb">J'accepte le stockage de mes données</label>
+                <input type="checkbox" name="accordMemb" value="1" <?= isset($old['accordMemb']) ? 'checked' : '' ?> required>
+                
+            </div>
+        </div>
+        <!-- Boutons -->
+        <div class="btn-se-connecter">
+            <button type="submit">Créer mon compte</button>
+        </div>
+
+        <p>Vous possédez déjà un compte ? <a href="/views/backend/security/login.php" class="link">Se connecter</a></p>
+    </form>
+
+</main>
 
 <script>
-        function togglePassword(id) {
-            var passMemb = document.getElementById(id);
-            if (passMemb.type === "password") {
-                passMemb.type = "text";
-            } else {
-                passMemb.type = "password";
-            }
+    function togglePassword(id) {
+        var x = document.getElementById(id);
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
         }
-</script> 
+    }
+</script>

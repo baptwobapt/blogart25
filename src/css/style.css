@@ -1,0 +1,224 @@
+html, body {
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+    font-family: "Poppins", serif;
+    overflow-x: hidden;
+    background-color: rgb(84, 85, 85) ; 
+}
+
+#menu {
+    background-color: #67081D;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: "Poppins", serif;
+    font-weight: 400;
+    font-size: 22px;
+    padding: 25px 50px ; 
+}
+
+#menu ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+}
+
+#menu ul li a {
+    text-decoration: none;
+    color: white;
+}
+
+#menu ul li a:hover {
+    transition: 0.3s;
+    color: #bd7575;
+}
+
+#menu .bouton-connexion {
+    color: #67081D;
+    background-color: white;
+    outline: 2px solid white;
+    border-radius: 40px;
+    padding: 8px 25px;
+    transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+#menu .bouton-connexion:hover {
+    color: white;
+    background-color: transparent;
+}
+
+.logged-in {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 7px;
+}
+
+#menu .bouton-deconnexion {
+    color: white;
+    background-color: transparent;
+    outline: 2px solid white;
+    border-radius: 40px 2px 2px 40px;
+    padding: 8px 25px;
+    transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out, color 0.3s ease-in-out; /* Ajout de transition pour transformer, couleur et fond */
+}
+
+#menu .bouton-deconnexion:hover {
+    background-color: white;
+    color: #67081D;
+}
+
+#menu .bouton-profil {
+    color: #67081D;
+    background-color: white;
+    outline: 2px solid white;
+    border-radius: 2px 40px 40px 2px;
+    padding: 8px 25px;
+    transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+#menu .bouton-profil:hover {
+    color: white;
+    background-color: transparent;
+    outline: 2px solid white;
+}
+
+.link {
+    text-decoration: none;
+    color: #67081D;
+}
+
+.link:hover {
+    transition: 0.3s;
+    text-decoration: underline;
+}
+
+
+h1 {
+    margin: 80px;
+    text-transform: uppercase;
+    font-size: 90px;
+    text-align: center;
+}
+
+
+/*MISE EN FORME DU FORMULAIRE DE CONTACT*/
+form h1 {
+    margin: 70px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.champ {
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.champ label {
+    align-self: flex-start;
+    font-weight: 500;
+    font-size: 18px;
+}
+
+.champ input {
+    width: 100%;
+    font-family: "Poppins", serif;
+    border: none;
+    border-bottom: 2px solid #cccccc; /* Ajoute uniquement une ligne en bas */
+    outline: none; /* Supprime le contour bleu par défaut */
+}
+
+input:focus {
+    transition: border-color 0.3s ease;
+    border-bottom: 2px solid #67081D; 
+}
+
+.btn-se-connecter {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 10px;
+}
+
+.btn-se-connecter a {
+    font-size: 15px;
+}
+
+.btn-se-connecter button {
+    color: white;
+    background-color: #67081D;
+    border: none;
+    border-radius: 40px;
+    padding: 8px 25px;
+    cursor: pointer;
+    font-family: "Poppins", serif;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.btn-se-connecter button:hover {
+    transition: 0.3s;
+    background: #a3082a;
+}
+
+.h1-mdp {
+    margin-bottom: 0;
+}
+
+form p {
+    margin-bottom: 70px;
+}
+
+.btn-mdp {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+    margin-bottom: 40px;
+}
+
+.btn-mdp button {
+    color: white;
+    background-color: #67081D;
+    border: none;
+    border-radius: 40px;
+    padding: 8px 25px;
+    cursor: pointer;
+    font-family: "Poppins", serif;
+    font-weight: 500;
+    font-size: 16px;  
+}
+
+.btn-mdp button:hover {
+    transition: 0.3s;
+    background: #a3082a;
+}
+
+.afficher-mdp {
+    display: flex;
+    align-self: flex-start;
+    gap: 10px;
+    cursor: pointer; 
+    white-space: nowrap; 
+}
+
+.afficher-mdp label {
+    font-size: 16px;
+    font-weight:300;
+}
