@@ -11,7 +11,11 @@
     <link rel="shortcut icon" type="image/x-icon" href="src/images/article.png" />
 </head>
 <?php
-//load config
+session_start();
+$pseudo = isset($_SESSION['pseudoMemb']) ? $_SESSION['pseudoMemb'] : null;
+$numStat = isset($_SESSION['numStat']) ? $_SESSION['numStat'] : 3;    
+
+// Load config
 require_once 'config.php';
 ?>
 <body>
@@ -27,17 +31,38 @@ require_once 'config.php';
           <a class="nav-link active" aria-current="page" href="/">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/views/backend/dashboard.php">Admin</a>
+          <a class="nav-link" href="/views/frontend/actors.php">Acteurs</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/views/frontend/events.php">Evenement</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/views/frontend/original.php">Insolite</a>
+        </li>
+
       </ul>
     </div>
-    <!--right align-->
-    <div class="d-flex">
-      <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Rechercher sur le site…" aria-label="Search" >
+
+    <!-- Zone de droite -->
+    <div class="d-flex align-items-center">
+      <form class="d-flex me-2" role="search">
+          <input class="form-control me-2" type="search" placeholder="Rechercher sur le site…" aria-label="Search">
       </form>
-      <a class="btn btn-primary m-1" href="/views/backend/security/login.php" role="button">Login</a>
-      <a class="btn btn-dark m-1" href="/views/backend/security/signup.php" role="button">Sign up</a>
+
+      <!-- Si l'utilisateur est connecté -->
+      <?php if ($pseudo): ?>
+        <div class="d-flex align-items-center me-3">
+          <span class="ms-2 fw-bold"><?php echo htmlspecialchars($pseudo); ?></span>
+        </div>
+        <a class="btn btn-danger m-1" href="/api/security/disconnect.php" role="button">Déconnexion</a>
+      <?php else: ?>
+
+        <a class="btn btn-primary m-1" href="/views/backend/security/login.php" role="button">Login</a>
+        <a class="btn btn-dark m-1" href="/views/backend/security/signup.php" role="button">Sign up</a>
+      <?php endif; ?>
+      <?php if ($numStat == '1' || $numStat == '2'): ?>
+        <a class="btn btn-primary" href="/views/backend/dashboard.php" role="button" >Admin</a>
+      <?php endif; ?>
     </div>
   </div>
 </nav>

@@ -2,6 +2,7 @@
 require_once 'header.php';
 sql_connect();
 
+
 ?>
 
 <!-- Afficher le message de bienvenue après une connexion réussie -->
