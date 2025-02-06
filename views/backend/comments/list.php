@@ -196,4 +196,5 @@ $coms = sql_select("comment c INNER JOIN article a ON c.numArt = a.numArt
     <a href="create.php" class="btn btn-success">Create</a>
 </div>
 <?php
-include '../../../footer.php'; // contains the footer
+require_once $_SERVER['DOCUMENT_ROOT'] . '/footer.php';
+?>

@@ -37,4 +37,5 @@ $keywords = sql_select("MOTCLE", "*");
     </div>
 </div>
 <?php
-include '../../../footer.php'; // contains the footer
+require_once $_SERVER['DOCUMENT_ROOT'] . '/footer.php';
+?>

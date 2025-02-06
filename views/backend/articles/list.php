@@ -78,4 +78,5 @@ $thematiques = sql_select("THEMATIQUE", "*");
     </div>
 </div>
 <?php
-include '../../../footer.php'; // contains the footer
+require_once $_SERVER['DOCUMENT_ROOT'] . '/footer.php';
+?>

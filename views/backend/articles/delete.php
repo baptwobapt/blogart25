@@ -127,5 +127,5 @@ if (isset($_GET['numArt'])) {
 </div>
 
 <?php
-include '../../../footer.php'; // Inclure le footer
+require_once $_SERVER['DOCUMENT_ROOT'] . '/footer.php';
 ?>

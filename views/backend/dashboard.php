@@ -103,3 +103,6 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/functions/redirec.php';
         </div>
     </div>
 </div>
+<?php
+require_once $_SERVER['DOCUMENT_ROOT'] . '/footer.php';
+?>

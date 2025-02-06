@@ -131,3 +131,6 @@ if(isset($_GET['numCom'])){
         </div>
     </div>
 </div>
+<?php
+require_once $_SERVER['DOCUMENT_ROOT'] . '/footer.php';
+?>

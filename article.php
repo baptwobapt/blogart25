@@ -1,4 +1,5 @@
 <?php
+require_once 'footer.php';
 require_once 'header.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/config.php';
 
@@ -110,6 +111,7 @@ $listMot = sql_select(
             </div>
 
             <div class="section-right">
+                <h2 style="font-size:50px; font-weight:700;">Autres articles</h2>
                 <?php
                 $randomArticles = sql_select("ARTICLE", "*", "1=1 ORDER BY RAND() LIMIT 3");
 
@@ -134,3 +136,6 @@ $listMot = sql_select(
     </section>
 </body>
 </html>
+<?php
+require_once 'footer.php';
+?>

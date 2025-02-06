@@ -4,6 +4,7 @@ $pseudo = isset($_SESSION['pseudoMemb']) ? $_SESSION['pseudoMemb'] : null;
 $numStat = isset($_SESSION['numStat']) ? $_SESSION['numStat'] : 3;    
 
 
+
 // Load config
 require_once 'config.php';
 ?>
@@ -45,7 +46,7 @@ require_once 'config.php';
               <a href="/"><img src="/src/images/bon_logo/Logo.svg" alt="logo"></a>
             </div>
         </div>
-        <ul><li><a href="#">Actualités</a></li></ul>
+        <ul><li><a href="/actualites.php">Actualités</a></li></ul>
         <div class="header-right">
             <nav>
                 <ul>

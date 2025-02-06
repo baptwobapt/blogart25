@@ -41,5 +41,7 @@ $statuts = sql_select("STATUT", "*");
         </div>
     </div>
 </div>
+
 <?php
-include '../../../footer.php'; // contains the footer
+require_once $_SERVER['DOCUMENT_ROOT'] . '/footer.php';
+?>

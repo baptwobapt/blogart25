@@ -32,3 +32,6 @@ if(isset($_GET['numThem'])){
         </div>
     </div>
 </div>
+<?php
+require_once $_SERVER['DOCUMENT_ROOT'] . '/footer.php';
+?>
