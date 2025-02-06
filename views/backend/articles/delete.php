@@ -1,5 +1,7 @@
 <?php
 include '../../../header.php'; // Inclure le header
+require_once $_SERVER['DOCUMENT_ROOT'] . '/functions/redirec.php';
+
 
 // Vérifier si l'ID de l'article est passé en paramètre
 if (isset($_GET['numArt'])) {

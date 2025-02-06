@@ -1,5 +1,6 @@
 <?php
 include '../../../header.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/functions/redirec.php';
 
 if(isset($_GET['numArt'])){
     $numArt = (int)$_GET['numArt'];
@@ -38,32 +39,32 @@ if(isset($_GET['numArt'])){
                 
                 <div class="form-group">
                     <label for="libAccrochArt">Accroche</label>
-                    <input id="libAccrochArt" name="libAccrochArt" class="form-control" type="text" value="<?php echo $article['libAccrochArt']; ?>" maxlength="100" required />
+                    <input id="libAccrochArt" name="libAccrochArt" class="form-control" type="text" value="<?php echo $article['libAccrochArt']; ?>" maxlength="1000" required />
                 </div>
                 
                 <div class="form-group">
                     <label for="parag1Art">Paragraphe 1</label>
-                    <textarea id="parag1Art" name="parag1Art" class="form-control" maxlength="1200" required><?php echo $article['parag1Art']; ?></textarea>
+                    <textarea id="parag1Art" name="parag1Art" class="form-control" maxlength="2000" required><?php echo $article['parag1Art']; ?></textarea>
                 </div>
                 
                 <div class="form-group">
                     <label for="libSsTitr1Art">Sous-titre 1</label>
-                    <input id="libSsTitr1Art" name="libSsTitr1Art" class="form-control" type="text" value="<?php echo $article['libSsTitr1Art']; ?>" maxlength="100" required />
+                    <input id="libSsTitr1Art" name="libSsTitr1Art" class="form-control" type="text" value="<?php echo $article['libSsTitr1Art']; ?>" maxlength="1000" required />
                 </div>
                 
                 <div class="form-group">
                     <label for="parag2Art">Paragraphe 2</label>
-                    <textarea id="parag2Art" name="parag2Art" class="form-control" maxlength="1200" required><?php echo $article['parag2Art']; ?></textarea>
+                    <textarea id="parag2Art" name="parag2Art" class="form-control" maxlength="2000" required><?php echo $article['parag2Art']; ?></textarea>
                 </div>
                 
                 <div class="form-group">
                     <label for="libSsTitr2Art">Sous-titre 2</label>
-                    <input id="libSsTitr2Art" name="libSsTitr2Art" class="form-control" type="text" value="<?php echo $article['libSsTitr2Art']; ?>" maxlength="100" required />
+                    <input id="libSsTitr2Art" name="libSsTitr2Art" class="form-control" type="text" value="<?php echo $article['libSsTitr2Art']; ?>" maxlength="1000" required />
                 </div>
                 
                 <div class="form-group">
                     <label for="parag3Art">Paragraphe 3</label>
-                    <textarea id="parag3Art" name="parag3Art" class="form-control" maxlength="1200" required><?php echo $article['parag3Art']; ?></textarea>
+                    <textarea id="parag3Art" name="parag3Art" class="form-control" maxlength="2000" required><?php echo $article['parag3Art']; ?></textarea>
                 </div>
                 
                 <div class="form-group">

@@ -4,20 +4,17 @@ include '../../../header.php';
 
 // Récupération des données de session
 $errors = $_SESSION['errors'] ?? [];
-$success = $_SESSION['success'] ?? null;
 $old = $_SESSION['old'] ?? [];
 
 // Nettoyage des données de session après récupération
-unset($_SESSION['errors'], $_SESSION['success'], $_SESSION['old']);
+unset($_SESSION['errors'], $_SESSION['old']);
 ?>
 
 <main>
 
     <h1>Créer mon compte</h1>
 
-    <?php if ($success): ?>
-        <div class="alert alert-success"><?= htmlspecialchars($success) ?></div>
-    <?php endif; ?>
+
     <div class="container mb-4">
         <?php if (!empty($errors)): ?>
             <div class="alert alert-danger">
@@ -70,6 +67,7 @@ unset($_SESSION['errors'], $_SESSION['success'], $_SESSION['old']);
                 <div class="champ">
                     <label for="passMemb">Mot de passe :</label>
                     <input type="password" id="passMemb" name="passMemb" required>
+                    <small class="form-text text-muted">Au moins 8 caractères, une majuscule, une minuscule et un chiffre</small>
                     <div class="afficher-mdp">
                         <input type="checkbox" onclick="togglePassword('passMemb')"> Afficher mot de passe
                     </div>

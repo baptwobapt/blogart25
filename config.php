@@ -12,7 +12,7 @@ require_once ROOT . '/config/defines.php';
 
 //debug
 
-    require_once ROOT . '/config/debug.php';
+require_once ROOT . '/config/debug.php';
 
 
 //load functions

@@ -1,5 +1,9 @@
 <?php
 include '../../../header.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/functions/redirec.php';
+
+
+
 if(isset($_GET['numThem'])){
     $numThem = $_GET['numThem'];
     $libThem = sql_select("THEMATIQUE", "libThem", "numThem = $numThem")[0]['libThem'];

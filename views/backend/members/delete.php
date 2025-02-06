@@ -1,11 +1,11 @@
 <?php
-include '../../../header.php'; // Contient le header et l'appel à config.php
+include '../../../header.php'; 
+require_once $_SERVER['DOCUMENT_ROOT'] . '/functions/redirec.php';
 
-// Seulement si tu es admin ou modérateur, tu as accès à cette page
-/*if (!isset($_SESSION['numStat']) || !in_array($_SESSION['numStat'], [1, 2])) {
-    header('Location: ../../index.php');
-    exit();
-}*/
+
+
+
+
 
 if(isset($_GET['numMemb'])){
     $numMemb = $_GET['numMemb'];

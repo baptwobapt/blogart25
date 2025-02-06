@@ -1,5 +1,7 @@
 <?php
 include '../../../header.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/functions/redirec.php';
+
 if(isset($_GET['numMotCle'])){
     $numMotCle = $_GET['numMotCle'];
     $libMotCle = sql_select("MOTCLE", "libMotCle", "numMotCle = $numMotCle")[0]['libMotCle'];

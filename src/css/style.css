@@ -1,14 +1,43 @@
+
+
 html, body {
     height: 100vh;
     width: 100vw;
     margin: 0;
     padding: 0;
     scroll-behavior: smooth;
-    font-family: "Poppins", serif;
+    font-family: "Poppins", serif !important;
     overflow-x: hidden;
-    background-color: rgb(84, 85, 85) ; 
+    text-align: center !important;
 }
+.header-left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+}
+.header-right {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
 
+}
+.rowlog {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 50px;
+    width: 100%;
+}
+.collumnslog {
+
+    width: 30%;
+}
+dl, ol, ul {
+    margin-top: 0;
+    margin-bottom: 0rem !important;
+}
 #menu {
     background-color: #67081D;
     display: flex;
@@ -17,7 +46,8 @@ html, body {
     font-family: "Poppins", serif;
     font-weight: 400;
     font-size: 22px;
-    padding: 25px 50px ; 
+    padding: 20px 50px;
+    height: 110px;
 }
 
 #menu ul {
@@ -31,6 +61,12 @@ html, body {
 #menu ul li a {
     text-decoration: none;
     color: white;
+}
+#menu h2 {
+    color: white;
+    height: 100%;
+    margin: 0;
+    
 }
 
 #menu ul li a:hover {
@@ -98,18 +134,24 @@ html, body {
     text-decoration: underline;
 }
 
+ul {
 
-h1 {
+    margin-block-start: 0em;
+    margin-block-end: 0px !important;
+    padding-inline-start: 0px;
+}
+h1 { 
     margin: 80px;
-    text-transform: uppercase;
-    font-size: 90px;
+    text-transform: uppercase !important;
+    font-size: 90px !important;
     text-align: center;
+    font-family: "Poppins", serif !important;
 }
 
 
 /*MISE EN FORME DU FORMULAIRE DE CONTACT*/
-form h1 {
-    margin: 70px;
+h1 {
+    margin: 70px !important;
 }
 
 form {
@@ -120,7 +162,7 @@ form {
 }
 
 .champ {
-    width: 35%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -140,6 +182,7 @@ form {
     border: none;
     border-bottom: 2px solid #cccccc; /* Ajoute uniquement une ligne en bas */
     outline: none; /* Supprime le contour bleu par défaut */
+    
 }
 
 input:focus {
@@ -180,7 +223,7 @@ input:focus {
     margin-bottom: 0;
 }
 
-form p {
+formp {
     margin-bottom: 70px;
 }
 
@@ -221,4 +264,17 @@ form p {
 .afficher-mdp label {
     font-size: 16px;
     font-weight:300;
+}
+
+
+
+
+
+
+
+
+h1 {
+  font-size: 65px !important;
+  font-weight: bold     !important;
+  text-transform: uppercase;
 }

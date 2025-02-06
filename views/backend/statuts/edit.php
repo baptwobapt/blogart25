@@ -1,5 +1,9 @@
 <?php
 include '../../../header.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/functions/redirec.php';
+
+
+
 if(isset($_GET['numStat'])){
     $numStat = $_GET['numStat'];
     $libStat = sql_select("STATUT", "libStat", "numStat = $numStat")[0]['libStat'];

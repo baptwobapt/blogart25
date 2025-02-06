@@ -3,6 +3,7 @@ include '../../../header.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/config.php';
 require_once '../../../functions/ctrlSaisies.php';
 
+$success = $_SESSION['success'] ?? null;
 $errorPseudo = $errorPassword = "";
 $pseudo = "";
 
@@ -38,10 +39,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 <main>
-    <h1 class="text-center">Se connecter</h1>
 
-   
+    <h1 class="text-center">Se connecter</h1>
+    <?php if ($success): ?>
+            <div class="alert alert-success"><?= htmlspecialchars($success) ?></div>
+    <?php endif; ?>
+    
     <form action="" method="post">
+
         <div class="collumnslog">
         <!-- Pseudo -->
             <div class="champ">
@@ -69,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <!-- Boutons -->
         <div class="btn-se-connecter">
             <button type="submit">Se connecter</button>
-            <a  class="link">Mot de passe oublié ?</a>
+            <a  href="/views/backend/security/mdpoublié.php" class="link">Mot de passe oublié ?</a>
         </div>
 
         <p>Nouveau chez Mêlées Bordelaises ? <br>

@@ -1,6 +1,8 @@
 <?php
 include '../../../header.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/functions/redirec.php';
 ?>
+
 
 <!-- Bootstrap form to create a new statut -->
 <div class="container">
