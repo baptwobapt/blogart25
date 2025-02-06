@@ -2,7 +2,7 @@
 session_start();
 $pseudo = isset($_SESSION['pseudoMemb']) ? $_SESSION['pseudoMemb'] : null;
 $numStat = isset($_SESSION['numStat']) ? $_SESSION['numStat'] : 3;    
-
+require_once $_SERVER['DOCUMENT_ROOT'] . '/functions/ctrlSaisies.php';
 
 
 // Load config

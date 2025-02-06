@@ -1,9 +1,10 @@
 <?php
 require_once 'header.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/config.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/functions/ctrlSaisies.php';
 
-// Connexion à la base de données
-sql_connect();
+session_start(); 
+
 
 // Vérification de la présence de numArt
 if (!isset($_GET['numArt']) || empty($_GET['numArt'])) {
@@ -31,6 +32,49 @@ $listMot = sql_select(
     'ARTICLE.numArt, libMotCle',
     "ARTICLE.numArt = '$numArt'"
 );
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Vérifier si l'utilisateur est connecté
+    if (!isset($_SESSION['user_id'])) {
+        $_SESSION['error'] = "Vous devez être connecté pour ajouter un commentaire.";
+        header("Location: " . ROOT_URL . "/views/backend/security/login.php");
+        exit();
+    }
+
+    // Récupérer l'ID du membre connecté et les autres données
+    $numMemb = $_SESSION['user_id']; // Utilisateur connecté
+    $libCom = htmlspecialchars($_POST['libCom']);
+    $numArt = (int)$_POST['numArt'];
+
+    // Ajouter le commentaire dans la base de données
+    if (!empty($libCom) && !empty($numArt) && !empty($numMemb)) {
+        sql_insert('comment', 'libCom, numArt, numMemb', "'$libCom', '$numArt', '$numMemb'");
+        echo "<p style='color: green;'>Commentaire ajouté avec succès !</p>";
+    } else {
+        echo "<p style='color: red;'>Erreur : tous les champs doivent être remplis correctement.</p>";
+    }
+}
+
+
+// Récupérer l'article actuel avec ses commentaires
+$numArt = $_GET['numArt']; // Assure-toi d'avoir l'ID de l'article dans l'URL
+$comments = sql_select("comment c 
+                        INNER JOIN membre m ON c.numMemb = m.numMemb 
+                        WHERE c.numArt = $numArt 
+                        AND c.delLogiq = 0", 
+                        "c.libCom, c.dtCreaCom, m.pseudoMemb");
+$comments = sql_select("comment c 
+                        INNER JOIN membre m ON c.numMemb = m.numMemb 
+                        WHERE c.numArt = $numArt 
+                        AND c.delLogiq = 0
+                        AND c.attModOK = 1", 
+                        "c.libCom, c.dtCreaCom, m.pseudoMemb");
+// Afficher l'article et ses commentaires
+$article = sql_select("article", "*", "numArt = $numArt")[0];
+
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -59,16 +103,16 @@ $listMot = sql_select(
 
     <div>
         <h1 class="article1titre">
-            <?php echo htmlspecialchars($article['libTitrArt']); ?>
+            <?php echo ($article['libTitrArt']); ?>
         </h1>
         <h2 class="soustitre">
-            <?php echo htmlspecialchars($article['dtCreaArt']); ?> <br> Lecture 2 min
+            <?php echo ($article['dtCreaArt']); ?> <br> Lecture 2 min
         </h2>
     </div>
 
     <section>
         <h2 class="carre">
-            <?php echo htmlspecialchars($article['libChapoArt']); ?> 
+            <?php echo ($article['libChapoArt']); ?> 
         </h2>
 
         <div class="containerarticle">
@@ -76,53 +120,78 @@ $listMot = sql_select(
                 <div class="contenu">
                     <article>
                         <h2 class="phraseaccroche">
-                            <?php echo htmlspecialchars($article['libAccrochArt']); ?> 
+                            <?php echo ($article['libAccrochArt']); ?> 
                         </h2>
                         <p class="paragraphe">
-                            <?php echo htmlspecialchars($article['parag1Art']); ?> 
+                            <?php echo ($article['parag1Art']); ?> 
                         </p>
-                        <img class="image2" src="<?php echo ROOT_URL . '/src/uploads/' . htmlspecialchars($article['urlPhotArt']); ?>" alt="Image article">
+                        <img class="image2" src="<?php echo ROOT_URL . '/src/uploads/' . ($article['urlPhotArt']); ?>" alt="Image article">
                         <p class="petit">
                             © Groupe 05 Blog’Art MMI Bordeaux-Montaigne + Description de l’image 
                         </p>
 
                         <div class="text-with-line">
-                            <?php echo htmlspecialchars($article['libSsTitr1Art']); ?> 
+                            <?php echo ($article['libSsTitr1Art']); ?> 
                         </div>
 
                         <p class="paragraphe2">
-                            <?php echo htmlspecialchars($article['parag2Art']); ?>
+                            <?php echo ($article['parag2Art']); ?>
                         </p>
 
                         <div class="text-with-line">
-                            <?php echo htmlspecialchars($article['libSsTitr2Art']); ?>
+                            <?php echo ($article['libSsTitr2Art']); ?>
                         </div>
 
                         <p class="paragraphe3">
-                            <?php echo htmlspecialchars($article['parag3Art']); ?>
+                            <?php ($article['parag3Art']); ?>
                         </p>
 
                         <p class="conclusion">
-                            <?php echo htmlspecialchars($article['libConclArt']); ?>
+                            <?php echo ($article['libConclArt']); ?>
                         </p>
                     </article>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- Affichage des commentaires -->
+                            <h2>Commentaires</h2>
+                            <?php if (!empty($comments)): ?>
+                                <ul >
+                                    <?php foreach ($comments as $comment): ?>
+                                        <div class="commentairesaf">
+                                            <li class="list-group-item">
+                                            <span class="pseudo"><?php echo ($comment['pseudoMemb']); ?></span> 
+                                            a écrit le 
+                                            <span class="date"><?php echo ($comment['dtCreaCom']); ?> :</span>
+                                            <p class="commentaire"><?php echo nl2br(($comment['libCom'])); ?></p>
+
+                                            </li>
+                                        </div>
+                                    <?php endforeach; ?>
+                                </ul>
+                            <?php else: ?>
+                                <p>Il n'y a pas encore de commentaires pour cet article.</p>
+                            <?php endif; ?>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <div class="section-right">
-                <h2 style="font-size:50px; font-weight:700;">Autres articles</h2>
+                <h2>Autres articles</h2>
                 <?php
                 $randomArticles = sql_select("ARTICLE", "*", "1=1 ORDER BY RAND() LIMIT 3");
 
                 if (!empty($randomArticles)):
                     foreach ($randomArticles as $randomArticle): ?>
                         <div class="random-article">
-                            <img class="imagedroite" src="<?php echo ROOT_URL . '/src/uploads/' . htmlspecialchars($randomArticle['urlPhotArt']); ?>" alt="Image article">
+                            <img class="imagedroite" src="<?php echo ROOT_URL . '/src/uploads/' . ($randomArticle['urlPhotArt']); ?>" alt="Image article">
                             <h2 class="titredroite">
-                                <?php echo htmlspecialchars($randomArticle['libTitrArt']); ?>
+                                <?php echo ($randomArticle['libTitrArt']); ?>
                             </h2>
                             <p class="txtdroite">
-                                <?php echo htmlspecialchars($randomArticle['libChapoArt']); ?>
+                                <?php echo ($randomArticle['libChapoArt']); ?>
                             </p>
                             <a href="article.php?numArt=<?php echo $randomArticle['numArt']; ?>" class="clickable-text">Lire l'article →</a>
                         </div>
@@ -130,7 +199,28 @@ $listMot = sql_select(
                 else: ?>
                     <p>Aucun article disponible.</p>
                 <?php endif; ?>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2>Ajouter un commentaire</h2>
+                        </div>
+                        <div class="col-md-12">
+                            <!-- Form to create a new motcle -->
+                            <form action="article.php?numArt=<?php echo $numArt; ?>" method="post">
+                                <div class="champ">
+                                    <textarea id="libCom" name="libCom" class="form-control" type="text" required></textarea>
+                                </div>
+                                <input type="hidden" name="numArt" value="<?php echo $numArt; ?>" />
+                                <br />
+                                <div class="btn-se-connecter">
+                                    <button type="submit">Envoyer</button>
+                                </div>  
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
+
         </div>
     </section>
 </body>

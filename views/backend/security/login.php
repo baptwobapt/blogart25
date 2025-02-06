@@ -7,6 +7,7 @@ $success = $_SESSION['success'] ?? null;
 $errorPseudo = $errorPassword = "";
 $pseudo = "";
 
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $pseudo = ctrlSaisies($_POST['pseudo']);
     $password = ctrlSaisies($_POST['password']);
@@ -44,6 +45,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <?php if ($success): ?>
             <div class="alert alert-success"><?= htmlspecialchars($success) ?></div>
     <?php endif; ?>
+    <?php if (isset($_SESSION['error'])): ?>
+        <div class="alert alert-danger"><?= htmlspecialchars($_SESSION['error']) ?></div>
+        <?php unset($_SESSION['error']); ?> <!-- Efface le message après affichage -->
+    <?php endif; ?>
+
     
     <form action="" method="post">
 

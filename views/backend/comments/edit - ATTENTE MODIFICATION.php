@@ -1,6 +1,8 @@
 <?php
 include '../../../header.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/functions/redirecmodo.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/functions/ctrlSaisies.php';
+
 
 if(isset($_GET['numCom'])){
     $numCom = $_GET['numCom'];

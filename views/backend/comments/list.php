@@ -54,7 +54,7 @@ $coms = sql_select("comment c INNER JOIN article a ON c.numArt = a.numArt
                                 <?php ?> 
                                     <tr>
                                         <td><?php echo($com['libTitrArt']); ?></td>
-                                        <td><?php echo($com['numMemb']); ?></td>
+                                        <td><?php echo($com['pseudoMemb']); ?></td>
                                         <td><?php echo($com['dtCreaCom']); ?></td>
                                         <td><?php echo($com['libCom']); ?></td>
                                         <td>

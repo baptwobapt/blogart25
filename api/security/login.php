@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Vérifier si l'utilisateur existe avec ce pseudo
     $user = sql_select("MEMBRE", "*", "pseudoMemb = '$pseudo'");
-
+    
     if ($user) {
         // Utiliser password_verify pour comparer le mot de passe saisi avec celui haché
         if (password_verify($password, $user[0]['passMemb'])) {
