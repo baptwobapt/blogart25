@@ -93,6 +93,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 </script>
-<?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/footer.php';
-?>
+

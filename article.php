@@ -1,5 +1,4 @@
 <?php
-require_once 'footer.php';
 require_once 'header.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/config.php';
 
@@ -137,5 +136,5 @@ $listMot = sql_select(
 </body>
 </html>
 <?php
-require_once 'footer.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/footer.php';
 ?>

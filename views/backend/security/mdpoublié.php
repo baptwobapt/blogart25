@@ -15,6 +15,3 @@ require_once '../../../functions/ctrlSaisies.php';
             </form>
         </main>
 </body>
-<?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/footer.php';
-?>

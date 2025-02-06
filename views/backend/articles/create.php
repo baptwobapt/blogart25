@@ -141,6 +141,3 @@ $keywordsart = sql_select("MOTCLEARTICLE", "*");
     </div>
 </div>
 
-<?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/footer.php';
-?>

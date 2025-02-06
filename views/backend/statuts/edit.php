@@ -32,6 +32,3 @@ if(isset($_GET['numStat'])){
         </div>
     </div>
 </div>
-<?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/footer.php';
-?>

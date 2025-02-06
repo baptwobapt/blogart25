@@ -195,6 +195,3 @@ $coms = sql_select("comment c INNER JOIN article a ON c.numArt = a.numArt
 <div class="col-md-2" style="margin: 0.5rem 1rem;">
     <a href="create.php" class="btn btn-success">Create</a>
 </div>
-<?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/footer.php';
-?>

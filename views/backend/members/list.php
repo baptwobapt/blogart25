@@ -56,6 +56,3 @@ $members = sql_select("MEMBRE INNER JOIN STATUT ON MEMBRE.numStat = STATUT.numSt
     </div>
 </div>
 
-<?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/footer.php';
-?>

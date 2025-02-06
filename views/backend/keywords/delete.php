@@ -44,6 +44,3 @@ if (isset($_GET['numMotCle'])) {
         </div>
     </div>
 </div>
-<?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/footer.php';
-?>

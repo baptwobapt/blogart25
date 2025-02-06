@@ -97,6 +97,3 @@ document.getElementById('afficher2').addEventListener("click", function() {
     passInput2.type = (passInput2.type === 'password') ? 'text' : 'password';
 });
 </script>
-<?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/footer.php';
-?>

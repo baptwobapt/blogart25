@@ -78,4 +78,6 @@ $article = sql_select("ARTICLE", "*");
     </div>
     <?php } ?>
 </main>
-<?php require_once 'footer.php'; ?>  
+<?php
+require_once $_SERVER['DOCUMENT_ROOT'] . '/footer.php';
+?>

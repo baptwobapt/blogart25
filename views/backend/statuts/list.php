@@ -42,6 +42,3 @@ $statuts = sql_select("STATUT", "*");
     </div>
 </div>
 
-<?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/footer.php';
-?>
