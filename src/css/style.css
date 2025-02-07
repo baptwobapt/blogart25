@@ -340,3 +340,65 @@ formp {
         font-size: 14px;
     }
 }
+@media (max-width: 768px) {
+    #menu {
+        flex-direction: column; /* Stack items vertically */
+        padding: 15px 30px; /* Reduce padding */
+        height: auto; /* Remove fixed height */
+    }
+
+    #menu ul {
+        flex-direction: column; /* Stack the links vertically */
+        gap: 20px; /* Add some space between items */
+        text-align: center; /* Center-align the text */
+    }
+
+    .header-left, .header-right {
+        width: 100%;
+        justify-content: center; /* Center the elements */
+    }
+
+    .logo-header {
+        margin-bottom: 10px; /* Add some space at the bottom for mobile */
+    }
+
+    .headerh2 {
+        font-size: 25px; /* Reduce font size for smaller screens */
+    }
+
+    .logged-in, .bouton-connexion, .bouton-deconnexion, .bouton-profil {
+        width: 100%;
+        text-align: center; /* Center the buttons */
+        padding: 10px;
+    }
+
+    /* Style for the navbar menu button for smaller screens (Hamburger menu) */
+    .navbar-toggler {
+        display: block; /* Show the toggle button */
+    }
+
+    .navbar-nav {
+        display: none; /* Hide menu items by default */
+    }
+
+    .navbar-toggler.collapsed + .navbar-nav {
+        display: block; /* Show menu items when toggle is clicked */
+    }
+
+    /* Adjust button sizes */
+    .bouton-connexion, .bouton-deconnexion, .bouton-profil {
+        padding: 8px 20px;
+        font-size: 16px;
+    }
+
+    /* Responsive design for the cookie popup */
+    .cookie-popup {
+        font-size: 14px;
+        padding: 10px 20px;
+    }
+    .cookie-buttons button {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+}
+

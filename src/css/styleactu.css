@@ -125,3 +125,19 @@
     font-weight: 700;
     margin-bottom: -10px;
 }
+
+/* Responsive pour les écrans plus grands */
+@media (max-width: 768px) {
+    .titlehead {
+        font-size: 40px!important;
+        margin-top: 250px !important;
+        margin-bottom: 250px !important;
+    }
+
+    .carre {
+        padding: 50px;
+        font-size: 20px;
+    }
+
+
+}

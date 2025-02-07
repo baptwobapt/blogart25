@@ -274,6 +274,7 @@ h2 {
     font-style: italic;
 }
 
+
 /* ======================= RESPONSIVE ======================= */
 @media (max-width: 1024px) {
     .containerarticle {
@@ -291,8 +292,23 @@ h2 {
     .imagedroite, .image2 {
         max-width: 100%;
     }
+    .titlehead {
+        font-size: 40px!important;
+        margin-top: 250px !important;
+        margin-bottom: 250px !important;
+    }
+    .carre {
+        padding: 50px;
+        font-size: 20px;
+    }
+    h1 {
+        font-size: 40px!important;
+        margin-top: 250px !important;
+        margin-bottom: 250px !important;
+    }
+    .carre {
+        padding: 50px;
+        font-size: 20px;
+        
+    }
 }
-
-
-
-
