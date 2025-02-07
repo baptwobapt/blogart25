@@ -22,10 +22,9 @@
 			</div>
 
 			<div class="footer-bar">
-				<a href="#">Politique de cookies</a>
-				<a href="#">Données personnelles</a>
-				<a href="#">CGU</a>
-				<a href="#">Mentions légales</a>
+				<a href="/infoleg/cgu.php">Confidentialité</a>
+				<a href="/infoleg/cgu.php">CGU</a>
+				<a href="/infoleg/mentionleg.php">Mentions légales</a>
 			</div>
 
 			<p>© www.meleesbordelaises.com</p>

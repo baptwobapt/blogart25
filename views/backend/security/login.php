@@ -1,7 +1,21 @@
 <?php
+
+
+session_start();
 include '../../../header.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/config.php';
 require_once '../../../functions/ctrlSaisies.php';
+
+// Ajout d'un message d'erreur si les cookies ne sont pas acceptés
+
+session_start();
+
+// Vérifier si l'utilisateur a refusé les cookies
+if (isset($_COOKIE['cookieConsent']) && $_COOKIE['cookieConsent'] === "rejected") {
+    header("Location: " . ROOT_URL . "/index.php");
+    exit();
+}
+
 
 $success = $_SESSION['success'] ?? null;
 $errorPseudo = $errorPassword = "";

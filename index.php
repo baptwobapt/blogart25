@@ -7,77 +7,128 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/config.php';
 // Récupérer les articles de la base de données
 $article = sql_select("ARTICLE", "*");
 ?>
-
-<main class="container bg-white">
-    <div class="row position-relative">
-        <div class="col mt-4">
-            <img src="src/images/pont-pierre.jpg" alt="Pont de Pierre" style="width: 100%; position: relative; border-radius: 15px;">
-        </div>    
-        <h1 class="text-center position-absolute top-50 start-50 translate-middle text-white" style="z-index: 1; font-size:5vw;">LES GARDIENS DE LA GARONNE</h1>    </div>    
-    </div>
-    <div class="row">
-        <!-- Article à la une (titre) -->
-        <div class="col-md-6">
-            <div class="p-4 p-md-5 mb-4 pe-3">
-                <h1 class="display-4">
-                    <?php echo $article ? htmlspecialchars($article[0]['libTitrArt']) : "Aucun article trouvé."; ?>
-                </h1>
-                <!-- Article à la une (chapô) -->
-                <p class="lead my-3">
-                    <?php echo $article ? htmlspecialchars($article[0]['libChapoArt']) : "Aucun article trouvé."; ?>
-                </p>
-                <a href="/views/frontend/articles/article?id=<?php echo $article[0]['numArt']; ?>" class="text-body-emphasis fw-bold">Lire la suite...</a>
-            </div>
-        </div>
-        <!-- Article à la une (image) -->
-        <div class="col-md-6 d-flex align-items-center pe-5">
-            <div class="w-100 d-flex justify-content-center align-items-center">
-                <img src="<?php echo ROOT_URL . '/src/uploads/' . htmlspecialchars($article[3]['urlPhotArt']); ?>" alt="Image actuelle" style="max-height: 100%; max-width: 100%;">
-            </div>
+<div id="cookie-popup" class="cookie-popup">
+    <div class="cookie-content">
+        <h3>Politique de Cookies</h3>
+        <p>
+            Nous utilisons des cookies pour assurer le bon fonctionnement de ce blog sur l'UBB, améliorer votre expérience, personnaliser 
+            le contenu et analyser le trafic. Certains cookies sont strictement nécessaires, tandis que d'autres nous aident à mieux comprendre 
+            votre navigation.
+            <br>
+            <br>En cliquant sur “Continuer et accepter”, vous autorisez l'utilisation de tous les cookies. Si vous choisissez “Continuer sans 
+            accepter”, vous ne pourrez pas créer de compte. Si vous possèdez déjà un compte, vous devrez le supprimer pour refuser les cookies.
+            <br>
+            <br>Votre choix sera enregistré pour une durée de 6 mois, mais vous pourrez le modifier à tout moment en accédant aux “Politique 
+            de confidentialité” en bas de page.
+        </p>
+        <div class="cookie-buttons">
+            <button id="reject-cookies">Continuer sans accepter</button>                        
+            <button id="accept-cookies">Continuer et accepter</button>
         </div>
     </div>
 
-    <!-- Articles suivants -->
-    <div class="row bg-primary bg-opacity-10" style="border-radius: 15px;">
-        <?php for ($i = 1; $i <= 2; $i++) { if (isset($article[$i])) { ?>
-        <div class="col-md-6 p-4 p-md-5 mb-4 pe-3">
-            <div class="row g-0 border rounded flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                <div class="col-md-12 p-4 d-flex flex-column position-static">
-                    <h3 class="mb-3"><?php echo htmlspecialchars($article[$i]['libTitrArt']); ?></h3>
-                    <p class="card-text mb-auto"><?php echo htmlspecialchars($article[$i]['libChapoArt']); ?></p>
-                    <a href="views/frontend/articles/article?id=<?php echo $article[$i]['numArt']; ?>" class="text-body-emphasis fw-bold">Lire la suite...</a>
-                    </div>
-                <div class="col-md-12 px-3">
-                    <div class="h-100 d-flex justify-content-center align-items-center rounded">
-                        <img src="<?php echo ROOT_URL . '/src/uploads/' . htmlspecialchars($article[$i]['urlPhotArt']); ?>" 
-                            alt="Image actuelle" 
-                            class="img-fluid rounded" 
-                            style="width: 100%; height: auto; object-fit: cover;">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <?php }} ?>
-    </div>
+                  
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const cookiePopup = document.getElementById("cookie-popup");
+        const acceptBtn = document.getElementById("accept-cookies");
+        const rejectBtn = document.getElementById("reject-cookies");
 
-    <!-- Dernier article -->
-    <?php if (isset($article[3])) { ?>
-    <div class="row">
-        <div class="col-md-6 d-flex align-items-center px-5">
-            <div class="w-100 d-flex justify-content-center align-items-center">
-                <img src="<?php echo ROOT_URL . '/src/uploads/' . htmlspecialchars($article[3]['urlPhotArt']); ?>" alt="Image actuelle" style="max-height: 100%; max-width: 100%;">
+        // Vérifier si l'utilisateur a refusé les cookies
+        if (localStorage.getItem("cookieConsent") === "rejected" || !localStorage.getItem("cookieConsent")) {
+            cookiePopup.style.display = "block";  // Afficher le pop-up si refusé ou pas encore de choix
+        }
+
+        // Accepter les cookies
+        acceptBtn.addEventListener("click", function () {
+            localStorage.setItem("cookieConsent", "accepted");
+            document.cookie = "cookieConsent=accepted; path=/; max-age=" + (6 * 30 * 24 * 60 * 60); // Expire après 6 mois
+            cookiePopup.style.display = "none";  // Masquer le pop-up après acceptation
+        });
+
+        // Refuser les cookies
+        rejectBtn.addEventListener("click", function () {
+            localStorage.setItem("cookieConsent", "rejected");
+            document.cookie = "cookieConsent=rejected; path=/; max-age=" + (6 * 30 * 24 * 60 * 60); // Expire après 6 mois
+            cookiePopup.style.display = "none";  // Masquer le pop-up après rejet
+        });
+    });
+</script>
+<?php
+
+    require_once 'header.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/config.php';
+    
+?>
+
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <title>Mêlées Bordelaises</title>
+        <link href="<?php echo ROOT_URL . "/"?>src/css/styleactu.css" rel="stylesheet"/>
+        <link href="<?php echo ROOT_URL . "/"?>src/css/style.css" rel="stylesheet"/>
+    </head>
+
+    <body>
+        <div>
+
+            <div class="image-fixe">
+                <img src="src/images/imageacceuil.jpg" alt="Image fixe">
             </div>
+
+            <div>
+            <h1 class="article1titre">
+                <h1 class="titlehead" >Mêlées Bordelaises</h1>
+            </h1>
+
         </div>
-        <div class="col-md-6">
-            <div class="p-4 p-md-5 mb-4">
-                <h1 class="display-4"><?php echo htmlspecialchars($article[3]['libTitrArt']); ?></h1>
-                <p class="lead my-3"><?php echo htmlspecialchars($article[3]['libChapoArt']); ?></p>
-                <a href="views/frontend/articles/article?id=<?php echo $article[3]['numArt']; ?>" class="text-body-emphasis fw-bold">Lire la suite...</a>
-            </div>
+        <h2 class="carre">
+                <p class="accroche">Notre blog est une passionnée tribune dédiée à l'univers du rugby, 
+                    avec un accent particulier sur l'UBB . Nous partageons les 
+                    moments forts de l’équipe, les analyses des matchs, les interviews de joueurs et 
+                    tout ce qui touche à l’actualité du club bordelais. Que vous soyez supporter de 
+                    longue date ou novice dans ce sport, vous trouverez ici des informations pour 
+                    suivre et apprécier le rugby à Bordeaux sous toutes ses facettes.</p>
+        </h2>
+        <div class="containeractu">
+
+
+
+            <section class="articles"> 
+                        <?php
+
+                        $randomArticles = sql_select("ARTICLE", "*", "1=1 ORDER BY RAND() LIMIT 3");
+
+                        if (!empty($randomArticles)):
+                            foreach ($randomArticles as $randomArticle): ?>
+                                <div class="art">
+                                    <div class="random-article">
+                                        <img class="imagedroite" src="<?php echo ROOT_URL . '/src/uploads/' . htmlspecialchars($randomArticle['urlPhotArt']); ?>" alt="Image article">
+                                        <h2 class="titredroite">
+                                            <?php echo htmlspecialchars($randomArticle['libTitrArt']); ?>
+                                        </h2>
+                                        <p class="txtdroite">                               
+                                            <?php echo substr($randomArticle['libChapoArt'], 0, 100) . (strlen($randomArticle['libChapoArt']) > 100 ? '...' : ''); ?></td>
+                                        </p>
+                                        <a href="article.php?numArt=<?php echo $randomArticle['numArt']; ?>" class="clickable-text">Lire l'article →</a>
+                                    </div>
+                                </div>
+                            <?php endforeach;
+                        else: ?>
+                            <p>Aucun article disponible.</p>
+                        <?php endif; ?>
+                    </div>                    
+                </a>
+                
+            </section>
         </div>
-    </div>
-    <?php } ?>
-</main>
+    </body>
+</html>
+
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/footer.php';
 ?>
