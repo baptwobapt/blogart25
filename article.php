@@ -106,9 +106,7 @@ $article = sql_select("article", "*", "numArt = $numArt")[0];
 
 
 
-// Récupération des statistiques likes/dislikes
-$likeCount = sql_select("LIKEART", "COUNT(*) as count", "numArt = $numArt AND likeA = 1")[0]['count'] ?? 0;
-$dislikeCount = sql_select("LIKEART", "COUNT(*) as count", "numArt = $numArt AND likeA = 0")[0]['count'] ?? 0;
+
 
 // Vérification du vote de l'utilisateur
 $userVote = null;

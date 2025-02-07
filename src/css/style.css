@@ -45,7 +45,7 @@ dl, ol, ul {
     align-items: center;
     font-family: "Poppins", serif;
     font-weight: 400;
-    font-size: 22px;
+    font-size: 22px !important;
     padding: 20px 50px;
     height: 110px;
 }
@@ -62,11 +62,12 @@ dl, ol, ul {
     text-decoration: none;
     color: white;
 }
-#menu h2 {
+#menu .headerh2 {
     color: white;
     height: 100%;
     margin: 0;
-    
+    font-size: 35px !important;
+    font-weight: 700;
 }
 
 #menu ul li a:hover {

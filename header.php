@@ -58,7 +58,7 @@ require_once 'config.php';
                         <li><a class="bouton-connexion" href="/views/backend/dashboard.php" role="button">Admin</a></li>
                     <?php endif; ?>
                     <?php if ($pseudo): ?>
-                        <h2><span style="text-align:center;"><?php echo htmlspecialchars($pseudo); ?></span></h2>
+                        <h2 class="headerh2" ><span style="text-align:center;"><?php echo htmlspecialchars($pseudo); ?></span></h2>
                         <div class="logged-in">
                           <li>
                               
