@@ -2,29 +2,28 @@
 require_once $_SERVER['DOCUMENT_ROOT'] . '/config.php';
 require_once '../../functions/ctrlSaisies.php';
 
-// Nettoyer les données envoyées par le formulaire
+// Nettoyer les données
 $numMemb = ctrlSaisies($_POST['numMemb']);
 $numArt = ctrlSaisies($_POST['numArt']);
 $likeA = ctrlSaisies($_POST['likeA']);
 
-// Vérification que 'likeA' est un entier valide (0 ou 1)
+// Validation de likeA
 if ($likeA !== "1" && $likeA !== "0") {
-    die("Erreur : 'likeA' doit être 1 ou 0.");
+    die("Erreur : valeur de like invalide.");
 }
-$likeA = (int)$likeA;  // Convertir 'likeA' en entier (0 ou 1)
+$likeA = (int)$likeA;
 
-// Vérification si le like existe déjà dans la base de données
+// Vérifier l'existence du like
 $existingLike = sql_select('LIKEART', '*', "numMemb = $numMemb AND numArt = $numArt");
 
 if ($existingLike) {
-    // Si le like existe déjà, on le met à jour
     sql_update('LIKEART', "likeA = $likeA", "numMemb = $numMemb AND numArt = $numArt");
 } else {
-    // Si le like n'existe pas, on l'insère
     sql_insert('LIKEART', 'numMemb, numArt, likeA', "$numMemb, $numArt, $likeA");
 }
 
-// Redirection après l'insertion ou la mise à jour
-header('Location: ../../views/backend/likes/list.php');
+// Redirection personnalisée
+$redirectUrl = isset($_POST['redirect_to']) ? $_POST['redirect_to'] : '../../views/backend/likes/list.php';
+header("Location: $redirectUrl");
 exit();
 ?>

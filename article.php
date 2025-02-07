@@ -5,7 +5,6 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/functions/ctrlSaisies.php';
 
 session_start(); 
 
-
 // Vérification de la présence de numArt
 if (!isset($_GET['numArt']) || empty($_GET['numArt'])) {
     die("Aucun article sélectionné.");
@@ -33,27 +32,60 @@ $listMot = sql_select(
     "ARTICLE.numArt = '$numArt'"
 );
 
+$article = $articleData[0];
+
+// Récupération des statistiques likes/dislikes
+$likeCount = sql_select("LIKEART", "COUNT(*) as count", "numArt = $numArt AND likeA = 1")[0]['count'] ?? 0;
+$dislikeCount = sql_select("LIKEART", "COUNT(*) as count", "numArt = $numArt AND likeA = 0")[0]['count'] ?? 0;
+
+// Vérification du vote de l'utilisateur
+$userVote = null;
+$libCom = isset($_POST['libCom']) ? ($_POST['libCom']) : null;
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Vérifier si l'utilisateur est connecté
     if (!isset($_SESSION['user_id'])) {
-        $_SESSION['error'] = "Vous devez être connecté pour ajouter un commentaire.";
+        $_SESSION['error'] = "Vous devez être connecté pour ajouter un commentaire ou un like.";
         header("Location: " . ROOT_URL . "/views/backend/security/login.php");
         exit();
     }
 
-    // Récupérer l'ID du membre connecté et les autres données
-    $numMemb = $_SESSION['user_id']; // Utilisateur connecté
-    $libCom = htmlspecialchars($_POST['libCom']);
-    $numArt = (int)$_POST['numArt'];
-
-    // Ajouter le commentaire dans la base de données
-    if (!empty($libCom) && !empty($numArt) && !empty($numMemb)) {
-        sql_insert('comment', 'libCom, numArt, numMemb', "'$libCom', '$numArt', '$numMemb'");
-        echo "<p style='color: green;'>Commentaire ajouté avec succès !</p>";
+    // Vérifie si c'est un like/dislike ou un commentaire
+    if (isset($_POST['libCom'])) {
+        // Récupérer l'ID du membre connecté et les autres données
+        $numMemb = $_SESSION['user_id'];
+        $libCom = ($_POST['libCom']);
+        $numArt = (int)$_POST['numArt'];
+        if (!empty($libCom) && !empty($numArt) && !empty($numMemb)) {
+            sql_insert('comment', 'libCom, numArt, numMemb', "'$libCom', '$numArt', '$numMemb'");
+            echo "<p style='color: green;'>Commentaire ajouté avec succès !</p>";
+        } else {
+            echo "<p style='color: red;'>Erreur : tous les champs doivent être remplis correctement.</p>";
+        }
     } else {
-        echo "<p style='color: red;'>Erreur : tous les champs doivent être remplis correctement.</p>";
+
+    
+        // Le reste du code existant pour le traitement du like...
+        $numMemb = $_SESSION['user_id'];
+        $likeA = (int)$_POST['likeA'];
+
+        // Vérifier si l'utilisateur a déjà voté
+        $existingVote = sql_select("LIKEART", "*", "numArt = $numArt AND numMemb = $numMemb");
+
+        if (!empty($existingVote)) {
+            // Mettre à jour le vote
+            sql_update("LIKEART", "likeA = $likeA", "numArt = $numArt AND numMemb = $numMemb");
+        } else {
+            // Insérer un nouveau vote
+            sql_insert("LIKEART", "numArt, numMemb, likeA", "'$numArt', '$numMemb', '$likeA'");
+        }
+
+        // Recharger la page pour mettre à jour le nombre de likes/dislikes
+        header("Location: article.php?numArt=$numArt");
+        exit();
     }
 }
+
 
 
 // Récupérer l'article actuel avec ses commentaires
@@ -74,8 +106,19 @@ $article = sql_select("article", "*", "numArt = $numArt")[0];
 
 
 
+// Récupération des statistiques likes/dislikes
+$likeCount = sql_select("LIKEART", "COUNT(*) as count", "numArt = $numArt AND likeA = 1")[0]['count'] ?? 0;
+$dislikeCount = sql_select("LIKEART", "COUNT(*) as count", "numArt = $numArt AND likeA = 0")[0]['count'] ?? 0;
 
+// Vérification du vote de l'utilisateur
+$userVote = null;
+if (isset($_SESSION['user_id'])) {
+    $numMemb = $_SESSION['user_id'];
+    $userVoteData = sql_select("LIKEART", "likeA", "numArt = $numArt AND numMemb = $numMemb");
+    $userVote = !empty($userVoteData) ? $userVoteData[0]['likeA'] : null;
+}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -154,6 +197,26 @@ $article = sql_select("article", "*", "numArt = $numArt")[0];
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
+                            <h2>Ajouter un commentaire</h2>
+                        </div>
+                        <div class="col-md-12">
+                            <!-- Form to create a new motcle -->
+                            <form action="article.php?numArt=<?php echo $numArt; ?>" method="post">
+                                <div class="champ">
+                                    <textarea id="libCom" name="libCom" class="form-control" type="text" required></textarea>
+                                </div>
+                                <input type="hidden" name="numArt" value="<?php echo $numArt; ?>" />
+                                <br />
+                                <div class="btn-se-connecter">
+                                    <button type="submit">Envoyer</button>
+                                </div>  
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
                             <!-- Affichage des commentaires -->
                             <h2>Commentaires</h2>
                             <?php if (!empty($comments)): ?>
@@ -199,28 +262,30 @@ $article = sql_select("article", "*", "numArt = $numArt")[0];
                 else: ?>
                     <p>Aucun article disponible.</p>
                 <?php endif; ?>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h2>Ajouter un commentaire</h2>
-                        </div>
-                        <div class="col-md-12">
-                            <!-- Form to create a new motcle -->
-                            <form action="article.php?numArt=<?php echo $numArt; ?>" method="post">
-                                <div class="champ">
-                                    <textarea id="libCom" name="libCom" class="form-control" type="text" required></textarea>
-                                </div>
-                                <input type="hidden" name="numArt" value="<?php echo $numArt; ?>" />
-                                <br />
-                                <div class="btn-se-connecter">
-                                    <button type="submit">Envoyer</button>
-                                </div>  
-                            </form>
-                        </div>
+                <div class="container likes-section">
+                    <h2>Évaluer cet article</h2>
+                    <div class="vote-buttons">
+                        <form action="article.php?numArt=<?php echo $numArt; ?>" method="post">
+                            <input type="hidden" name="numArt" value="<?php echo $numArt; ?>">
+                            <input type="hidden" name="likeA" value="1">
+                            <button type="submit" class="btn-vote <?php echo $userVote === 1 ? 'active-like' : ''; ?>">
+                                <img src="<?php echo ROOT_URL; ?>/src/images/pnglike.png" alt="Like">
+                                <h3><?php echo $likeCount; ?></h3>
+                            </button>
+                        </form>
+
+                        <!-- Formulaire Dislike -->
+                        <form action="article.php?numArt=<?php echo $numArt; ?>" method="post">
+                            <input type="hidden" name="numArt" value="<?php echo $numArt; ?>">
+                            <input type="hidden" name="likeA" value="0">
+                            <button type="submit" class="btn-vote <?php echo $userVote === 0 ? 'active-dislike' : ''; ?>">
+                                <img src="<?php echo ROOT_URL; ?>/src/images/pngdislike.png" alt="Dislike">
+                                <h3><?php echo $dislikeCount; ?></h3>
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
-
         </div>
     </section>
 </body>
