@@ -101,7 +101,7 @@ $article = sql_select("ARTICLE", "*");
             <section class="articles"> 
                         <?php
 
-                        $randomArticles = sql_select("ARTICLE", "*", "1=1 ORDER BY RAND() LIMIT 3");
+                        $randomArticles = sql_select("ARTICLE", "*", "1=1 ORDER BY RAND()");
 
                         if (!empty($randomArticles)):
                             foreach ($randomArticles as $randomArticle): ?>
